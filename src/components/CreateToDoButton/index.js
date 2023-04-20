@@ -1,6 +1,6 @@
 import "./CreateToDoButton.css";
 
-export default function CreateToDoButton(props) {
+function CreateToDoButton(props) {
   const handleClick = () => {
     alert("Se ha clickeado el botón");
   };
@@ -10,3 +10,5 @@ export default function CreateToDoButton(props) {
     </button>
   );
 }
+
+export { CreateToDoButton };

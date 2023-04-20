@@ -1,6 +1,6 @@
 import "./ToDoItem.css";
 
-export default function ToDoItem(props) {
+function ToDoItem(props) {
   return (
     <li className="ToDoItem">
       <span
@@ -18,3 +18,5 @@ export default function ToDoItem(props) {
     </li>
   );
 }
+
+export { ToDoItem };

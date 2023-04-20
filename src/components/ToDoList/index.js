@@ -1,8 +1,11 @@
 import "./ToDoList.css";
-export default function ToDoList(props) {
+
+function ToDoList(props) {
   return (
     <section>
       <ul>{props.children}</ul>
     </section>
   );
 }
+
+export { ToDoList };

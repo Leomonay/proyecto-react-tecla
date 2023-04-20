@@ -1,6 +1,6 @@
 import "./ToDoSearch.css";
 
-export default function ToDoSearch({ searchValue, setSearchValue }) {
+function ToDoSearch({ searchValue, setSearchValue }) {
   const onSearchTodoValue = (event) => {
     setSearchValue(event.target.value);
   };
@@ -14,3 +14,5 @@ export default function ToDoSearch({ searchValue, setSearchValue }) {
     />
   );
 }
+
+export { ToDoSearch };

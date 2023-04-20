@@ -1,10 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import CreateToDoButton from "./components/CreateToDoButton";
-import ToDoCounter from "./components/ToDoCounter";
-import ToDoItem from "./components/ToDoItem";
-import ToDoList from "./components/ToDoList";
-import ToDoSearch from "./components/ToDoSearch";
+import { Home } from "./Home";
 
 const defaultToDos = [
   { text: "ver contenido de tecla", completed: true },
@@ -13,7 +9,7 @@ const defaultToDos = [
   { text: "preparar la cena", completed: false },
 ];
 
-function App(props) {
+function App() {
   const [searchValue, setSearchValue] = useState("");
   const [toDos, setToDos] = useState(defaultToDos);
 
@@ -52,24 +48,16 @@ function App(props) {
   };
 
   return (
-    <>
-      <ToDoCounter total={totalToDos} completed={completedToDos} />
-
-      <ToDoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
-      <ToDoList>
-        {searchedToDos.map((toDo) => (
-          <ToDoItem
-            key={toDo.text}
-            text={toDo.text}
-            completed={toDo.completed}
-            onComplete={() => completeToDo(toDo.text)}
-            onDelete={() => deleteToDo(toDo.text)}
-          />
-        ))}
-      </ToDoList>
-      <CreateToDoButton />
-    </>
+    <Home
+      totalToDos={totalToDos}
+      completedToDos={completedToDos}
+      searchValue={searchValue}
+      setSearchValue={setSearchValue}
+      searchedToDos={searchedToDos}
+      completeToDo={completeToDo}
+      deleteToDo={deleteToDo}
+    />
   );
 }
 
-export default App;
+export { App };
