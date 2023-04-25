@@ -5,6 +5,8 @@ import { ToDoList } from "../ToDoList";
 import { ToDoSearch } from "../ToDoSearch";
 
 function Home({
+  error,
+  loading,
   totalToDos,
   completedToDos,
   searchValue,
@@ -18,17 +20,22 @@ function Home({
       <ToDoCounter total={totalToDos} completed={completedToDos} />
 
       <ToDoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
-      <ToDoList>
-        {searchedToDos.map((toDo) => (
-          <ToDoItem
-            key={toDo.text}
-            text={toDo.text}
-            completed={toDo.completed}
-            onComplete={() => completeToDo(toDo.text)}
-            onDelete={() => deleteToDo(toDo.text)}
-          />
-        ))}
-      </ToDoList>
+      {error && <p>Desperate, hubo un error...</p>}
+      {loading && <p>Cargando...</p>}
+      {!loading && !searchedToDos.length && <p>Crea tu primer To Do...</p>}
+      {!loading && searchedToDos.length && (
+        <ToDoList>
+          {searchedToDos.map((toDo) => (
+            <ToDoItem
+              key={toDo.text}
+              text={toDo.text}
+              completed={toDo.completed}
+              onComplete={() => completeToDo(toDo.text)}
+              onDelete={() => deleteToDo(toDo.text)}
+            />
+          ))}
+        </ToDoList>
+      )}
       <CreateToDoButton />
     </>
   );
