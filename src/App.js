@@ -28,15 +28,25 @@ class App extends React.Component {
     this.setState({ keyWord: newKeyWord });
   };
 
+  filterToDos = () => {
+    const newFiltered = toDos.filter((toDo) =>
+      toDo.text.includes(this.state.keyWord)
+    );
+    this.setState({ ...this.state, filteredToDos: newFiltered });
+  };
+
   render() {
     return (
       <>
         <ToDoCounter />
 
-        <ToDoSearch handleChange={this.setNewKeyword} />
+        <ToDoSearch
+          handleChange={this.setNewKeyword}
+          handleSubmit={this.filterToDos}
+        />
 
         <ToDoList>
-          {toDos.map((todo) => (
+          {this.state.filteredToDos.map((todo) => (
             <ToDoItem
               key={todo.text}
               text={todo.text}
