@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import CreateToDoButton from "./components/CreateToDoButton";
+import CreateToDoForm from "./components/CreateToDoForm";
 import ToDoCounter from "./components/ToDoCounter";
 import ToDoItem from "./components/ToDoItem";
 import ToDoList from "./components/ToDoList";
@@ -30,15 +30,8 @@ function App() {
   const [filteredToDos, setFilteredToDos] = useState(toDos);
 
   function setNewKeyword(event) {
-    setKeyword(event.target.value);
-  }
-
-  function filterToDos(event) {
-    event.preventDefault();
-    const newList = keyword
-      ? toDos.filter((toDo) => toDo.text.includes(keyword))
-      : toDos;
-    setFilteredToDos(newList);
+    const newKeyword = event.target.value;
+    setKeyword(newKeyword);
   }
 
   function completeToDo(text) {
@@ -46,20 +39,31 @@ function App() {
     const index = toDos.findIndex((toDo) => toDo.text === text);
     newToDos[index].completed = true;
     setToDos(newToDos);
-    setFilteredToDos(newToDos);
   }
 
   function deleteToDo(text) {
     const newToDos = toDos.filter((toDo) => toDo.text !== text);
     setToDos(newToDos);
-    setFilteredToDos(newToDos);
   }
+
+  function addToDo(text) {
+    const newToDos = [...toDos, { text, completed: false }];
+    setToDos(newToDos);
+  }
+
+  useEffect(() => {
+    if (!keyword) {
+      setFilteredToDos(toDos);
+    } else {
+      setFilteredToDos(toDos.filter((toDo) => toDo.text.includes(keyword)));
+    }
+  }, [toDos, keyword]);
 
   return (
     <>
       <ToDoCounter />
 
-      <ToDoSearch handleChange={setNewKeyword} handleSubmit={filterToDos} />
+      <ToDoSearch handleChange={setNewKeyword} />
 
       <ToDoList>
         {filteredToDos.map((todo) => (
@@ -72,7 +76,7 @@ function App() {
           />
         ))}
       </ToDoList>
-      <CreateToDoButton />
+      <CreateToDoForm handleSubmit={addToDo} />
     </>
   );
 }
