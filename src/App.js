@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import CreateToDoButton from "./components/CreateToDoButton";
 import ToDoCounter from "./components/ToDoCounter";
@@ -12,24 +13,61 @@ const toDos = [
   { text: "preparar la cena", completed: false },
 ];
 
-function App() {
-  return (
-    <>
-      <ToDoCounter />
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      keyWord: "",
+      toDos: toDos,
+      filteredToDos: toDos,
+    };
+  }
 
-      <ToDoSearch />
-      <ToDoList>
-        {toDos.map((todo) => (
-          <ToDoItem
-            key={todo.text}
-            text={todo.text}
-            completed={todo.completed}
-          />
-        ))}
-      </ToDoList>
-      <CreateToDoButton />
-    </>
-  );
+  setNewKeyword = (event) => {
+    const newKeyWord = event.target.value;
+    this.setState({ keyWord: newKeyWord });
+  };
+
+  render() {
+    return (
+      <>
+        <ToDoCounter />
+
+        <ToDoSearch handleChange={this.setNewKeyword} />
+
+        <ToDoList>
+          {toDos.map((todo) => (
+            <ToDoItem
+              key={todo.text}
+              text={todo.text}
+              completed={todo.completed}
+            />
+          ))}
+        </ToDoList>
+        <CreateToDoButton />
+      </>
+    );
+  }
 }
+
+// function App() {
+//   return (
+//     <>
+//       <ToDoCounter />
+
+//       <ToDoSearch />
+//       <ToDoList>
+//         {toDos.map((todo) => (
+//           <ToDoItem
+//             key={todo.text}
+//             text={todo.text}
+//             completed={todo.completed}
+//           />
+//         ))}
+//       </ToDoList>
+//       <CreateToDoButton />
+//     </>
+//   );
+// }
 
 export default App;
