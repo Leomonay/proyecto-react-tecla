@@ -63,6 +63,9 @@
 .submit {
   background-color: forestgreen;
 }
+.submit:disabled {
+  opacity: 0.6;
+}
 .cancel {
   background-color: red;
 }

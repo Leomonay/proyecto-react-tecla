@@ -1,4 +1,4 @@
-import "./ToDoItem.css";
+import "./index.css";
 
 export default function ToDoItem(props) {
   return (

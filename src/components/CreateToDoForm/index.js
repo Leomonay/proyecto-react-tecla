@@ -1,31 +1,13 @@
-import { useState } from "react";
-import "./CreateToDoForm.css";
+import "./index.css";
 
-export default function CreateToDoForm(props) {
-  const [open, setOpen] = useState(false);
-  const [newToDo, setNewToDo] = useState("");
-
-  function handleClick(e) {
-    e.preventDefault();
-    setOpen(true);
-  }
-
-  function handleChange(e) {
-    setNewToDo(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    props.handleSubmit(newToDo);
-    setNewToDo("");
-    setOpen(false);
-  }
-  function handleCancel(e) {
-    e.preventDefault();
-    setNewToDo("");
-    setOpen(false);
-  }
-
+export default function CreateToDoForm({
+  open,
+  newToDo,
+  handleClick,
+  handleChange,
+  handleSubmit,
+  handleCancel,
+}) {
   return (
     <>
       <button className="CreateToDoButton" onClick={handleClick}>
@@ -41,7 +23,7 @@ export default function CreateToDoForm(props) {
               onChange={handleChange}
             />
             <div>
-              <button className="submit" type="submit">
+              <button className="submit" type="submit" disabled={!newToDo}>
                 Agregar
               </button>
               <button className="cancel" onClick={handleCancel}>

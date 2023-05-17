@@ -1,4 +1,5 @@
-import "./ToDoList.css";
+import "./index.css";
+
 export default function ToDoList(props) {
   return (
     <section>

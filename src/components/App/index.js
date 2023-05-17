@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
-import CreateToDoForm from "./components/CreateToDoForm";
-import ToDoCounter from "./components/ToDoCounter";
-import ToDoItem from "./components/ToDoItem";
-import ToDoList from "./components/ToDoList";
-import ToDoSearch from "./components/ToDoSearch";
+import Home from "./Home";
 
 const initialToDos = [
   { text: "ver contenido de tecla", completed: true },
@@ -28,6 +23,11 @@ function App() {
   const [keyword, setKeyword] = useState();
   const [toDos, setToDos] = useLocalStorage("toDos_V1", initialToDos);
   const [filteredToDos, setFilteredToDos] = useState(toDos);
+  const [open, setOpen] = useState(false);
+  const [newToDo, setNewToDo] = useState("");
+
+  const totalToDos = toDos.length;
+  const completed = toDos.filter((toDo) => toDo.completed).length;
 
   function setNewKeyword(event) {
     const newKeyword = event.target.value;
@@ -46,11 +46,6 @@ function App() {
     setToDos(newToDos);
   }
 
-  function addToDo(text) {
-    const newToDos = [...toDos, { text, completed: false }];
-    setToDos(newToDos);
-  }
-
   useEffect(() => {
     if (!keyword) {
       setFilteredToDos(toDos);
@@ -59,25 +54,44 @@ function App() {
     }
   }, [toDos, keyword]);
 
+  function handleClick(e) {
+    e.preventDefault();
+    setOpen(true);
+  }
+
+  function formInputChange(e) {
+    setNewToDo(e.target.value);
+  }
+
+  function addToDo(e) {
+    e.preventDefault();
+    const newToDos = [...toDos, { text: newToDo, completed: false }];
+    setToDos(newToDos);
+    setNewToDo("");
+    setOpen(false);
+  }
+
+  function handleCancel(e) {
+    e.preventDefault();
+    setNewToDo("");
+    setOpen(false);
+  }
+
   return (
-    <>
-      <ToDoCounter />
-
-      <ToDoSearch handleChange={setNewKeyword} />
-
-      <ToDoList>
-        {filteredToDos.map((todo) => (
-          <ToDoItem
-            key={todo.text}
-            completeToDo={completeToDo}
-            deleteToDo={deleteToDo}
-            text={todo.text}
-            completed={todo.completed}
-          />
-        ))}
-      </ToDoList>
-      <CreateToDoForm handleSubmit={addToDo} />
-    </>
+    <Home
+      completed={completed}
+      totalToDos={totalToDos}
+      handleChange={setNewKeyword}
+      completeToDo={completeToDo}
+      deleteToDo={deleteToDo}
+      filteredToDos={filteredToDos}
+      open={open}
+      newToDo={newToDo}
+      handleClick={handleClick}
+      formInputChange={formInputChange}
+      handleCancel={handleCancel}
+      handleSubmit={addToDo}
+    />
   );
 }
 
