@@ -7,7 +7,7 @@ export default function CreateToDoForm() {
     open,
     newToDo,
     handleClick,
-    handleChange,
+    formInputChange,
     handleSubmit,
     handleCancel,
   } = useContext(AppContext);
@@ -23,7 +23,7 @@ export default function CreateToDoForm() {
               className="ToDoSearch"
               placeholder="Escribe tu To-Do"
               value={newToDo}
-              onChange={handleChange}
+              onChange={formInputChange}
             />
             <div>
               <button className="submit" type="submit" disabled={!newToDo}>

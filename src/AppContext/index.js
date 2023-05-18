@@ -1,5 +1,12 @@
 import { createContext, useEffect, useState } from "react";
-import useLocalStorage from "./useLocalStorage";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  addToDo,
+  completeToDoAction,
+  deleteToDo as deleteToDoAction,
+  setDefaultToDos,
+} from "../reducers/toDosReducer";
 
 const initialToDos = [
   { text: "ver contenido de tecla", completed: true },
@@ -11,11 +18,19 @@ const initialToDos = [
 const AppContext = createContext();
 
 function Provider(props) {
+  const { toDos, localStorageKey } = useSelector((state) => state.toDos);
+
   const [keyword, setKeyword] = useState();
-  const [toDos, setToDos] = useLocalStorage("toDos_V1", initialToDos);
   const [filteredToDos, setFilteredToDos] = useState(toDos);
   const [open, setOpen] = useState(false);
   const [newToDo, setNewToDo] = useState("");
+
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(setDefaultToDos(initialToDos)), [dispatch]);
+  useEffect(
+    () => localStorage.setItem(localStorageKey, JSON.stringify(toDos)),
+    [localStorageKey, toDos]
+  );
 
   const totalToDos = toDos.length;
   const completed = toDos.filter((toDo) => toDo.completed).length;
@@ -26,15 +41,11 @@ function Provider(props) {
   }
 
   function completeToDo(text) {
-    const newToDos = [...toDos];
-    const index = toDos.findIndex((toDo) => toDo.text === text);
-    newToDos[index].completed = true;
-    setToDos(newToDos);
+    dispatch(completeToDoAction(text));
   }
 
   function deleteToDo(text) {
-    const newToDos = toDos.filter((toDo) => toDo.text !== text);
-    setToDos(newToDos);
+    dispatch(deleteToDoAction(text));
   }
 
   useEffect(() => {
@@ -56,8 +67,7 @@ function Provider(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newToDos = [...toDos, { text: newToDo, completed: false }];
-    setToDos(newToDos);
+    dispatch(addToDo(newToDo));
     setNewToDo("");
     setOpen(false);
   }
