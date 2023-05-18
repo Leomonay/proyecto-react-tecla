@@ -1,13 +1,16 @@
+import { useContext } from "react";
+import { AppContext } from "../../AppContext";
 import "./index.css";
 
-export default function CreateToDoForm({
-  open,
-  newToDo,
-  handleClick,
-  handleChange,
-  handleSubmit,
-  handleCancel,
-}) {
+export default function CreateToDoForm() {
+  const {
+    open,
+    newToDo,
+    handleClick,
+    handleChange,
+    handleSubmit,
+    handleCancel,
+  } = useContext(AppContext);
   return (
     <>
       <button className="CreateToDoButton" onClick={handleClick}>
