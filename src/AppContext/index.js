@@ -23,7 +23,6 @@ function Provider(props) {
   const [keyword, setKeyword] = useState();
   const [filteredToDos, setFilteredToDos] = useState(toDos);
   const [open, setOpen] = useState(false);
-  const [newToDo, setNewToDo] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => dispatch(setDefaultToDos(initialToDos)), [dispatch]);
@@ -61,20 +60,15 @@ function Provider(props) {
     setOpen(true);
   }
 
-  function formInputChange(e) {
-    setNewToDo(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(values) {
+    const { newToDo } = values;
+    if (!newToDo) return alert("debe ingresar un To Do");
     dispatch(addToDo(newToDo));
-    setNewToDo("");
     setOpen(false);
   }
 
   function handleCancel(e) {
     e.preventDefault();
-    setNewToDo("");
     setOpen(false);
   }
 
@@ -88,9 +82,7 @@ function Provider(props) {
         completeToDo,
         deleteToDo,
         open,
-        newToDo,
         handleClick,
-        formInputChange,
         handleCancel,
         handleSubmit,
       }}
