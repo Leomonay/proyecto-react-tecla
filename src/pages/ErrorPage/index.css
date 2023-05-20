@@ -1,0 +1,20 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  gap: 1rem;
+}
+.notFound img {
+  max-width: 100%;
+}
+.backToHome {
+  padding: 1rem;
+  background-color: blue;
+  color: aquamarine;
+  text-decoration: none;
+  width: fit-content;
+  border-radius: 4rem;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}

@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   addToDo,
   completeToDoAction,
   deleteToDo as deleteToDoAction,
   setDefaultToDos,
 } from "../reducers/toDosReducer";
+import { useNavigate } from "react-router-dom";
 
 const initialToDos = [
   { text: "ver contenido de tecla", completed: true },
@@ -22,9 +22,9 @@ function Provider(props) {
 
   const [keyword, setKeyword] = useState();
   const [filteredToDos, setFilteredToDos] = useState(toDos);
-  const [open, setOpen] = useState(false);
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => dispatch(setDefaultToDos(initialToDos)), [dispatch]);
   useEffect(
     () => localStorage.setItem(localStorageKey, JSON.stringify(toDos)),
@@ -55,21 +55,11 @@ function Provider(props) {
     }
   }, [toDos, keyword]);
 
-  function handleClick(e) {
-    e.preventDefault();
-    setOpen(true);
-  }
-
   function handleSubmit(values) {
     const { newToDo } = values;
     if (!newToDo) return alert("debe ingresar un To Do");
     dispatch(addToDo(newToDo));
-    setOpen(false);
-  }
-
-  function handleCancel(e) {
-    e.preventDefault();
-    setOpen(false);
+    navigate("/");
   }
 
   return (
@@ -81,9 +71,6 @@ function Provider(props) {
         filteredToDos,
         completeToDo,
         deleteToDo,
-        open,
-        handleClick,
-        handleCancel,
         handleSubmit,
       }}
     >

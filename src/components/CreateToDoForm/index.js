@@ -1,14 +1,11 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { useContext } from "react";
-import { AppContext } from "../../AppContext";
 import "./index.css";
+import { Link } from "react-router-dom";
 
-let CreateToDoForm = ({ handleSubmit, pristine, submitting }) => {
+let CreateToDoForm = ({ handleSubmit, pristine, submitting, reset }) => {
   // pristine: situación en que ningún input ha cambiado.
   // submitting: situación en que form está siendo enviado.
-
-  const { handleCancel } = useContext(AppContext);
 
   return (
     <div className="toDoModal">
@@ -28,9 +25,9 @@ let CreateToDoForm = ({ handleSubmit, pristine, submitting }) => {
           >
             Agregar
           </button>
-          <button className="cancel" onClick={handleCancel}>
+          <Link className="cancel" to="/">
             Cancelar
-          </button>
+          </Link>
         </div>
       </form>
     </div>

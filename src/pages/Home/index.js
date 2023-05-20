@@ -1,18 +1,14 @@
-import "./App.css";
 import { AppContext } from "../../AppContext";
 // import CreateToDoForm from "../CreateToDoForm";
-import ToDoCounter from "../ToDoCounter";
-import ToDoItem from "../ToDoItem";
-import ToDoList from "../ToDoList";
-import ToDoSearch from "../ToDoSearch";
-import CreateToDoButton from "../CreateToDoButton";
-import { useContext } from "react";
-import CreateToDoForm from "../CreateToDoForm";
+import ToDoCounter from "../../components/ToDoCounter";
+import ToDoItem from "../../components/ToDoItem";
+import ToDoList from "../../components/ToDoList";
+import ToDoSearch from "../../components/ToDoSearch";
+import CreateToDoButton from "../../components/CreateToDoButton";
 
 function Home() {
-  const { open, handleSubmit } = useContext(AppContext);
   return (
-    <>
+    <div className="pageContainer">
       <ToDoCounter />
       <ToDoSearch />
       <AppContext.Consumer>
@@ -33,8 +29,7 @@ function Home() {
         }}
       </AppContext.Consumer>
       <CreateToDoButton />
-      {open && <CreateToDoForm onSubmit={handleSubmit} />}
-    </>
+    </div>
   );
 }
 

@@ -1,13 +1,8 @@
 .toDoModal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.25);
 }
 .addToDoForm {
   display: flex;
@@ -17,6 +12,7 @@
   border-radius: 1rem;
   padding: 1rem;
   width: 75%;
+  box-shadow: 0 0 8px black;
 }
 .addToDoForm > div {
   display: flex;
@@ -27,12 +23,15 @@
   margin-bottom: 1rem;
   padding: 0.5rem;
 }
-.addToDoForm button {
+.addToDoForm button,
+.addToDoForm a {
   color: white;
   font-weight: bold;
   padding: 1rem;
   border: none;
   border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
 }
 .submit {
   background-color: forestgreen;

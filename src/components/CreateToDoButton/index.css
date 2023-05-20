@@ -4,22 +4,22 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 50px;
+  font-size: 55px;
   position: fixed;
   bottom: 24px;
   right: 24px;
   font-weight: bold;
   color: #fafafa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 64px;
   width: 64px;
-
+  text-decoration: none;
   transform: rotate(0);
   transition: 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .CreateToDoButton:hover {
-  transform: rotate(224deg);
+  transform: rotate(225deg);
 }

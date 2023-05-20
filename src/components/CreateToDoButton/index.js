@@ -1,12 +1,10 @@
-import { useContext } from "react";
-import { AppContext } from "../../AppContext";
+import { Link } from "react-router-dom";
 import "./index.css";
 
 export default function CreateToDoButton() {
-  const { handleClick } = useContext(AppContext);
   return (
-    <button className="CreateToDoButton" onClick={handleClick}>
-      +
-    </button>
+    <Link to="/crear">
+      <div className="CreateToDoButton">&#65291;</div>
+    </Link>
   );
 }
